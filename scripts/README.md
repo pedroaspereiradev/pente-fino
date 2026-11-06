@@ -17,7 +17,7 @@ python -m venv .venv
 
 ```
 python scripts/fetch_album.py "Arthur Verocai" "Arthur Verocai"
-python scripts/fetch_album.py --all   # roda os 3 casos de teste do CLAUDE.md
+python scripts/fetch_album.py --all   # roda os 3 casos de teste da Fase 0
 ```
 
 Os resultados vão para `output/<artista>__<album>.json`.
@@ -25,8 +25,8 @@ Os resultados vão para `output/<artista>__<album>.json`.
 ## Observações
 
 - Os links de prévia (`preview_url`) da Deezer expiram em poucas horas.
-  O JSON salvo é só pra inspeção/validação da Fase 0 — em produção a
-  prévia deve ser buscada na hora, nunca guardada (ver CLAUDE.md).
+  O JSON salvo é só pra inspeção/validação da Fase 0 — em produção
+  (ver `api/`) a prévia é buscada na hora, nunca guardada.
 - A paleta usa quantização median-cut (Pillow) nas cores da capa,
   depois escolhe a cor mais escura como fundo e, entre as demais, a
   de maior contraste (WCAG) como destaque.

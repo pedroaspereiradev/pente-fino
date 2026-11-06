@@ -1,4 +1,5 @@
 import type { AlbumResult } from "@/types/album";
+import type { StoryResult } from "@/types/story";
 import type { TasteProfileRequest, TasteProfileResponse } from "@/types/tasteProfile";
 
 const API_BASE_URL =
@@ -19,6 +20,19 @@ export async function searchAlbum(artist: string, album: string): Promise<AlbumR
   }
   if (!res.ok) {
     throw new Error(`Falha ao buscar album (${res.status})`);
+  }
+
+  return res.json();
+}
+
+export async function fetchStory(artist: string, album: string): Promise<StoryResult> {
+  const url = new URL("/albums/story", API_BASE_URL);
+  url.searchParams.set("artist", artist);
+  url.searchParams.set("album", album);
+
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) {
+    throw new Error(`Falha ao buscar historia (${res.status})`);
   }
 
   return res.json();

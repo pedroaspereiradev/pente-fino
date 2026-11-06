@@ -25,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="pt-BR"
       className={`${manrope.variable} ${majorMonoDisplay.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-brand-ink text-brand-cream font-sans">
+      <body className="min-h-screen flex flex-col items-center bg-bg text-text font-sans">
         {children}
       </body>
     </html>

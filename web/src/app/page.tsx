@@ -1,51 +1,90 @@
-import { Suspense } from "react";
-import Link from "next/link";
-import { FichaExample } from "@/components/FichaExample";
-import { FichaCardSkeleton } from "@/components/FichaCardSkeleton";
+import { EntradaForm } from "@/components/EntradaForm";
+import { Logo } from "@/components/Logo";
 
 export default function Home() {
   return (
-    <div className="flex flex-1 flex-col items-center px-6 py-16 sm:py-24">
-      <header className="flex flex-col items-center text-center">
-        <p className="font-logo text-2xl tracking-widest text-brand-pink">
-          pente.fino
-        </p>
-        <h1 className="mt-8 max-w-md text-3xl leading-tight sm:text-4xl">
-          <span className="font-light">Descubra discos que</span>{" "}
-          <span className="font-bold text-brand-cream">ainda não conhece.</span>
+    <div
+      className="sm:my-10 sm:rounded-[32px] sm:border sm:border-line sm:bg-surface sm:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)]"
+      style={{
+        width: "100%",
+        maxWidth: 390,
+        boxSizing: "border-box",
+        padding: 20,
+        color: "#F4F4F6",
+        display: "flex",
+        flexDirection: "column",
+        gap: 22,
+        flex: 1,
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <Logo />
+        <a
+          href="#"
+          className="hover:text-brand-coral!"
+          style={{ fontSize: 13, color: "#F4D7D4" }}
+        >
+          Como funciona
+        </a>
+      </div>
+
+      <div
+        style={{
+          borderRadius: 32,
+          padding: "28px 24px",
+          background:
+            "radial-gradient(90% 80% at 50% 0%, #7A2E6F 0%, #3B1B4F 45%, #120A1C 100%)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          display: "flex",
+          flexDirection: "column",
+          gap: 14,
+        }}
+      >
+        <h1 style={{ margin: 0, fontSize: 36, lineHeight: 1.1, fontWeight: 300, letterSpacing: -1 }}>
+          Garimpando <span style={{ fontWeight: 700 }}>o disco certo</span> pra você
         </h1>
-        <p className="mt-4 max-w-sm text-sm font-light opacity-70">
-          Conecte seu Spotify ou diga o que você curte. A gente garimpa
-          álbuns e EPs fora do seu radar, com a história por trás de cada um
-          que vai te fazer apertar o play.
+        <p style={{ margin: 0, fontSize: 15, lineHeight: 1.5, color: "rgba(255,255,255,0.78)" }}>
+          Discos que você ainda não conhece, cada um com a história real por
+          trás.
         </p>
-
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <button
-            type="button"
-            className="rounded-full bg-black px-6 py-3 text-sm font-semibold text-brand-cream transition-opacity hover:opacity-80"
-          >
-            Conectar com Spotify
-          </button>
-          <Link
-            href="/gostos"
-            className="rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-brand-cream transition-colors hover:bg-white/5"
-          >
-            Falar o que eu curto
-          </Link>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            fontSize: 13,
+            color: "rgba(255,255,255,0.78)",
+          }}
+        >
+          <div style={{ width: 8, height: 8, borderRadius: 999, background: "#FF6B6B" }} />
+          Sem chute, para valer a pena o seu play!
         </div>
-      </header>
+      </div>
 
-      <section className="mt-20 flex w-full flex-col items-center">
-        <p className="text-xs font-semibold uppercase tracking-widest opacity-50">
-          Exemplo de ficha · dados ao vivo da Deezer
-        </p>
-        <div className="mt-6">
-          <Suspense fallback={<FichaCardSkeleton />}>
-            <FichaExample />
-          </Suspense>
-        </div>
-      </section>
+      <button
+        type="button"
+        style={{
+          height: 56,
+          border: 0,
+          borderRadius: 999,
+          background: "#FF6B6B",
+          color: "#1A0F2E",
+          fontFamily: "var(--font-manrope), sans-serif",
+          fontSize: 16,
+          fontWeight: 700,
+          cursor: "pointer",
+        }}
+      >
+        Entrar com Spotify
+      </button>
+
+      <div style={{ display: "flex", alignItems: "center", gap: 12, color: "#A8A8B3", fontSize: 13 }}>
+        <div style={{ flexGrow: 1, height: 1, background: "#1E1E26" }} />
+        <span>ou conte pra gente</span>
+        <div style={{ flexGrow: 1, height: 1, background: "#1E1E26" }} />
+      </div>
+
+      <EntradaForm />
     </div>
   );
 }

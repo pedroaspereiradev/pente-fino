@@ -42,21 +42,32 @@ em IA, com potencial de virar produto.
 
 ## Status atual
 
-**Em desenvolvimento inicial, sem perfil de gosto nem RAG ainda.**
+**Sem perfil de gosto nem Spotify ainda - o resto do pipeline já funciona
+de ponta a ponta com um disco de exemplo real.**
 
 - `scripts/fetch_album.py` - script da Fase 0 que validou a ideia: dado
   artista + álbum, busca capa/faixas/prévia na Deezer e extrai a paleta
   de cores da capa. Veja `scripts/README.md`.
-- `api/` - back-end em FastAPI. Hoje só tem a rota que busca tudo isso
-  **ao vivo** (capa, faixas, prévia, paleta), resolvendo o problema da
-  prévia da Deezer expirar. Veja `api/README.md`.
-- `web/` - front-end em Next.js com a tela de entrada e um exemplo real
-  de ficha (puxando da API acima). Login com Spotify e o fluxo "digitar
-  artistas" ainda não existem. Veja `web/README.md` (gerado pelo
-  `create-next-app`) pra rodar o dev server.
-- Gancho, "por que pra você" e história ainda são estáticos/placeholder
-  na ficha de exemplo - o pipeline de RAG sobre Wikipedia/MusicBrainz/
-  Last.fm ainda não foi construído.
+- `api/` - back-end em FastAPI:
+  - `GET /albums/search` busca capa/faixas/prévia **ao vivo** na Deezer
+    (nunca guarda a prévia, que expira).
+  - `GET /albums/facts` busca contexto real na Wikipedia (pt+en),
+    MusicBrainz e Last.fm.
+  - `GET /albums/story` gera o gancho e a história a partir **só**
+    dessas fontes (Gemini), valida que toda citação veio da busca de
+    verdade, e verifica cada frase gerada contra o texto coletado antes
+    de aceitar - descarta em vez de inventar.
+  - `POST /taste-profile` recebe o perfil "digitar artistas" e confirma
+    o recebimento (ainda sem embeddings/pgvector pra cruzar com discos).
+  - Veja `api/README.md`.
+- `web/` - front-end em Next.js com o visual implementado pixel a pixel
+  (ver seção Design). Tela de entrada unificada (Spotify inerte + chips
+  de artistas + distância) e uma ficha de exemplo real (Arthur Verocai)
+  puxando gancho/história/paleta ao vivo da API. "Por que pra você",
+  "Ouvir o disco inteiro", "Já conheço/Não curti" e login com Spotify
+  ainda são só visual, sem funcionalidade por trás.
+- Ainda não existem: perfil de gosto de verdade (embeddings/pgvector),
+  busca vetorial, OAuth do Spotify, e feedback persistido.
 
 ## Stack planejada
 
@@ -64,18 +75,27 @@ em IA, com potencial de virar produto.
 - Dados: MusicBrainz, Last.fm, Wikipedia. Deezer para capa e prévias.
   Spotify para login e links.
 
-## Design (referência pra quando o front existir)
+## Design
 
-- Referência de estilo: "Signal - Music Mobile App" (Behance). Fundo
-  preto puro, cards com cantos bem arredondados (24-32px) e glow interno,
-  player encaixado sob a capa, títulos misturando peso fino (300) e
-  negrito (700), botões circulares escuros.
+- Fonte da verdade: os mockups HTML que guiaram a implementação pixel a
+  pixel (cores, raios, gradientes, medidas) não ficam mais no repo -
+  foram só uma referência de passagem, já totalmente incorporada no
+  código (`web/src/lib/designTokens.ts`, `web/src/components/`).
+- Fundo quase preto (`#050507`) com um gradiente ambiente sutil nos tons
+  da marca; cards com cantos bem arredondados (24-32px); o player sobe
+  sobre a capa com um glow radial que muda por disco (extraído da paleta
+  da capa); títulos misturando peso fino (300) e negrito (700); botões
+  circulares escuros.
 - Cada ficha "veste" o disco: o glow e a cor de destaque vêm da paleta
-  extraída da capa do álbum.
+  extraída da capa do álbum (ou de valores calibrados à mão pros 3
+  discos de exemplo).
 - Paleta fixa da marca (entrada, logo, navegação): `#1A0F2E` `#3B1B4F`
   `#7A2E6F` `#D6598F` `#F4D7D4` `#FF6B6B`.
-- Fontes: Manrope (interface) e Doto (logo "pente.fino", matriz de pontos).
-- Mobile-first, na web.
+- Fontes: Manrope (interface, pesos 300/400/600/700) e Major Mono
+  Display (logo "pente.fino").
+- Mobile-first, na web: a partir de ~640px de largura o conteúdo ganha
+  um painel com borda/sombra pra não ficar perdido no meio da tela;
+  abaixo disso é a tela mobile "crua".
 
 ## Notas técnicas já validadas
 
