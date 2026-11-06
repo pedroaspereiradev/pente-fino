@@ -1,5 +1,6 @@
-import { FichaCard } from "@/components/FichaCard";
-import { exampleFichas } from "@/data/example-fichas";
+import { Suspense } from "react";
+import { FichaExample } from "@/components/FichaExample";
+import { FichaCardSkeleton } from "@/components/FichaCardSkeleton";
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
           <span className="font-bold text-brand-cream">ainda não conhece.</span>
         </h1>
         <p className="mt-4 max-w-sm text-sm font-light opacity-70">
-          Conecte seu Spotify ou diga de quem você gosta. A gente garimpa
+          Conecte seu Spotify ou diga o que você curte. A gente garimpa
           álbuns e EPs fora do seu radar, com a história por trás de cada um
           que vai te fazer apertar o play.
         </p>
@@ -29,17 +30,19 @@ export default function Home() {
             type="button"
             className="rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-brand-cream transition-colors hover:bg-white/5"
           >
-            Apresentar meus gostos
+            Falar o que eu curto
           </button>
         </div>
       </header>
 
       <section className="mt-20 flex w-full flex-col items-center">
         <p className="text-xs font-semibold uppercase tracking-widest opacity-50">
-          Exemplo de ficha · Fase 0
+          Exemplo de ficha · dados ao vivo da Deezer
         </p>
         <div className="mt-6">
-          <FichaCard ficha={exampleFichas[0]} />
+          <Suspense fallback={<FichaCardSkeleton />}>
+            <FichaExample />
+          </Suspense>
         </div>
       </section>
     </div>
