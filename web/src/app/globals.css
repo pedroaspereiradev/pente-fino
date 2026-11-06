@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+:root {
+  /* Paleta fixa da marca (entrada, logo, navegação) */
+  --brand-ink: #1a0f2e;
+  --brand-plum: #3b1b4f;
+  --brand-magenta: #7a2e6f;
+  --brand-pink: #d6598f;
+  --brand-cream: #f4d7d4;
+  --brand-coral: #ff6b6b;
+}
+
+@theme inline {
+  --font-sans: var(--font-manrope);
+  --font-logo: var(--font-major-mono);
+
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-plum: var(--brand-plum);
+  --color-brand-magenta: var(--brand-magenta);
+  --color-brand-pink: var(--brand-pink);
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-coral: var(--brand-coral);
+}
+
+body {
+  background: var(--brand-ink);
+}
