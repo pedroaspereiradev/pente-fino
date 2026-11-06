@@ -1,9 +1,15 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 import requests
 
 from app.deezer import AlbumNotFoundError, fetch_album
-from app.schemas import AlbumResult, TasteProfileRequest, TasteProfileResponse
+from app.facts import collect_facts
+from app.schemas import AlbumFacts, AlbumResult, StoryResult, TasteProfileRequest, TasteProfileResponse
+from app.story import generate_story
 
 app = FastAPI(title="pente.fino API")
 
@@ -31,6 +37,22 @@ def search(
         raise HTTPException(status_code=404, detail=str(e))
     except requests.RequestException as e:
         raise HTTPException(status_code=502, detail=f"Falha ao consultar a Deezer: {e}")
+
+
+@app.get("/albums/facts", response_model=AlbumFacts)
+def facts(
+    artist: str = Query(..., min_length=1),
+    album: str = Query(..., min_length=1),
+) -> AlbumFacts:
+    return collect_facts(artist, album)
+
+
+@app.get("/albums/story", response_model=StoryResult)
+def story(
+    artist: str = Query(..., min_length=1),
+    album: str = Query(..., min_length=1),
+) -> StoryResult:
+    return generate_story(collect_facts(artist, album))
 
 
 @app.post("/taste-profile", response_model=TasteProfileResponse)
