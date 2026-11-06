@@ -1,4 +1,6 @@
-from pydantic import BaseModel
+from typing import Literal
+
+from pydantic import BaseModel, Field
 
 
 class Track(BaseModel):
@@ -26,3 +28,17 @@ class AlbumResult(BaseModel):
     lead_track: Track | None
     palette: Palette
     source: str = "Deezer API"
+
+
+Distancia = Literal["perto", "meio", "salto"]
+
+
+class TasteProfileRequest(BaseModel):
+    items: list[str] = Field(min_length=3, max_length=5)
+    distancia: Distancia
+
+
+class TasteProfileResponse(BaseModel):
+    status: str
+    items: list[str]
+    distancia: Distancia

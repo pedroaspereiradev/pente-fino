@@ -1,6 +1,8 @@
 import type { AlbumResult } from "@/types/album";
+import type { TasteProfileRequest, TasteProfileResponse } from "@/types/tasteProfile";
 
-const API_BASE_URL = process.env.API_BASE_URL ?? "http://localhost:8000";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
 export class AlbumNotFoundError extends Error {}
 
@@ -17,6 +19,22 @@ export async function searchAlbum(artist: string, album: string): Promise<AlbumR
   }
   if (!res.ok) {
     throw new Error(`Falha ao buscar album (${res.status})`);
+  }
+
+  return res.json();
+}
+
+export async function submitTasteProfile(
+  payload: TasteProfileRequest
+): Promise<TasteProfileResponse> {
+  const res = await fetch(new URL("/taste-profile", API_BASE_URL), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Falha ao enviar perfil de gosto (${res.status})`);
   }
 
   return res.json();

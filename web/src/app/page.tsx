@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Link from "next/link";
 import { FichaExample } from "@/components/FichaExample";
 import { FichaCardSkeleton } from "@/components/FichaCardSkeleton";
 
@@ -26,12 +27,12 @@ export default function Home() {
           >
             Conectar com Spotify
           </button>
-          <button
-            type="button"
+          <Link
+            href="/gostos"
             className="rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-brand-cream transition-colors hover:bg-white/5"
           >
             Falar o que eu curto
-          </button>
+          </Link>
         </div>
       </header>
 
