@@ -1,27 +1,51 @@
 @import "tailwindcss";
 
 :root {
-  /* Paleta fixa da marca (entrada, logo, navegação) */
+  /* Usadas so no gradiente ambiente do fundo (ver body abaixo) */
   --brand-ink: #1a0f2e;
   --brand-plum: #3b1b4f;
   --brand-magenta: #7a2e6f;
-  --brand-pink: #d6598f;
-  --brand-cream: #f4d7d4;
   --brand-coral: #ff6b6b;
+
+  /* Tokens fixos do design-ref (DESIGN.md) - usados em todas as telas */
+  --bg: #050507;
+  --surface: #111116;
+  --surface-2: #16161c;
+  --line: #1e1e26;
+  --text: #f4f4f6;
+  --text-muted: #a8a8b3;
 }
 
 @theme inline {
   --font-sans: var(--font-manrope);
   --font-logo: var(--font-major-mono);
 
-  --color-brand-ink: var(--brand-ink);
-  --color-brand-plum: var(--brand-plum);
-  --color-brand-magenta: var(--brand-magenta);
-  --color-brand-pink: var(--brand-pink);
-  --color-brand-cream: var(--brand-cream);
   --color-brand-coral: var(--brand-coral);
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
 }
 
 body {
-  background: var(--brand-ink);
+  background: var(--bg);
+  background-image: radial-gradient(
+      60% 50% at 18% -8%,
+      color-mix(in srgb, var(--brand-magenta) 35%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      55% 45% at 85% 10%,
+      color-mix(in srgb, var(--brand-plum) 40%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      70% 60% at 50% 100%,
+      color-mix(in srgb, var(--brand-ink) 60%, transparent) 0%,
+      transparent 70%
+    );
+  background-attachment: fixed;
 }

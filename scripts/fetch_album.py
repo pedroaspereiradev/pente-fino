@@ -7,7 +7,7 @@ salva tudo em um JSON.
 
 Uso:
     python fetch_album.py "Arthur Verocai" "Arthur Verocai"
-    python fetch_album.py --all          # roda os 3 casos de teste do CLAUDE.md
+    python fetch_album.py --all          # roda os 3 casos de teste da Fase 0
 
 Nenhum dado é inventado: tudo que vai pro JSON vem direto da resposta da
 API do Deezer ou é calculado deterministicamente a partir da capa (cores).
@@ -31,7 +31,7 @@ from PIL import Image
 DEEZER_API = "https://api.deezer.com"
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "output"
 
-# Casos de teste citados no CLAUDE.md (Fase 0).
+# Casos de teste da Fase 0.
 TEST_CASES = [
     ("Arthur Verocai", "Arthur Verocai"),
     ("Little Simz", "Sometimes I Might Be Introvert"),
@@ -271,7 +271,7 @@ def main() -> None:
     parser.add_argument("artist", nargs="?", help="Nome do artista")
     parser.add_argument("album", nargs="?", help="Nome do album")
     parser.add_argument(
-        "--all", action="store_true", help="Roda os 3 casos de teste do CLAUDE.md"
+        "--all", action="store_true", help="Roda os 3 casos de teste da Fase 0"
     )
     args = parser.parse_args()
 
