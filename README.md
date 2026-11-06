@@ -42,11 +42,21 @@ em IA, com potencial de virar produto.
 
 ## Status atual
 
-**Fase 0 - validação técnica.** Ainda não existe interface (front-end).
-O que existe hoje é um script Python (`scripts/fetch_album.py`) que valida
-a primeira peça do pipeline: dado artista + álbum, busca capa/faixas/prévia
-na Deezer e extrai a paleta de cores da capa. Veja `scripts/README.md`
-para rodar.
+**Em desenvolvimento inicial, sem perfil de gosto nem RAG ainda.**
+
+- `scripts/fetch_album.py` - script da Fase 0 que validou a ideia: dado
+  artista + álbum, busca capa/faixas/prévia na Deezer e extrai a paleta
+  de cores da capa. Veja `scripts/README.md`.
+- `api/` - back-end em FastAPI. Hoje só tem a rota que busca tudo isso
+  **ao vivo** (capa, faixas, prévia, paleta), resolvendo o problema da
+  prévia da Deezer expirar. Veja `api/README.md`.
+- `web/` - front-end em Next.js com a tela de entrada e um exemplo real
+  de ficha (puxando da API acima). Login com Spotify e o fluxo "digitar
+  artistas" ainda não existem. Veja `web/README.md` (gerado pelo
+  `create-next-app`) pra rodar o dev server.
+- Gancho, "por que pra você" e história ainda são estáticos/placeholder
+  na ficha de exemplo - o pipeline de RAG sobre Wikipedia/MusicBrainz/
+  Last.fm ainda não foi construído.
 
 ## Stack planejada
 
